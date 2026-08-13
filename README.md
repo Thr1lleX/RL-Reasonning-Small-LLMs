@@ -1,6 +1,6 @@
 # RL/GRPO pour le raisonnement logique — puzzles « Blue Prince »
 
-Projet de recherche (portfolio) : entraîner un petit LLM (Qwen2.5-1.5B) au raisonnement
+Projet de recherche : entraîner un petit LLM (Qwen2.5-1.5B) au raisonnement
 logique sur un environnement de puzzles fait maison (inspiré des boîtes de *Blue Prince*,
 architecturalement proche de Knights & Knaves), et **mesurer la mémorisation** (LiMem) à
 travers quatre conditions d'entraînement (baseline / RL-seul / SFT / SFT+RL).
@@ -13,7 +13,7 @@ travers quatre conditions d'entraînement (baseline / RL-seul / SFT / SFT+RL).
 - [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) — journal de bord daté (décisions + pourquoi).
 - [`docs/METHODS.md`](docs/METHODS.md) — le système et les choix de conception.
 - [`docs/RESULTS.md`](docs/RESULTS.md) — index des expériences (config + seed + artefact).
-- [`contexte-projet-rl-reasoning.md`](contexte-projet-rl-reasoning.md) — cadrage initial du projet.
+
 
 ## Structure
 ```
@@ -59,5 +59,7 @@ python Solver/perturbator.py
 `torch` (build CUDA), `transformers`. Les modèles 1.5B se téléchargent au premier chargement.
 
 ## Références
-Voir [`contexte-projet-rl-reasoning.md`](contexte-projet-rl-reasoning.md) (Shao et al. 2024 ;
-Dang & Ngo 2026 ; Xie et al. 2024/2025 ; Smullyan 1978).
+- Shao et al. 2024, *DeepSeekMath* — papier source de GRPO.
+- DeepSeek-AI (Guo et al.) 2025, *DeepSeek-R1* — GRPO + RLVR à grande échelle.
+- Dang & Ngo 2026 (AAAI), *Reinforcement Learning for Reasoning in Small LLMs: What Works and What Doesn't* — précédent direct pour l'échelle de ressources, config Table 5, insights sur instabilité/dérive de longueur et de langue.
+- Xie et al. 2024/2025, *On Memorization of Large Language Models in Logical Reasoning* — benchmark K&K dynamique, métrique LiMem, patron architectural Generator/Solver/Reasoner/Perturber, résultats zero-shot par modèle (Fig. 3).

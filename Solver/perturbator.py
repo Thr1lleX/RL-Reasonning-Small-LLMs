@@ -184,21 +184,6 @@ def render_surface_identity(puzzle: Puzzle, gold_gem_box: str, color_mapping: Di
     return text, surface_solution
 
 
-def relabel_predicate(pred: Predicate, mapping: Dict[str, str]) -> Predicate:
-    if isinstance(pred, AndPredicate):
-        return AndPredicate(relabel_predicate(pred.sub_predicate, mapping), relabel_predicate(pred.sub_predicate2, mapping))
-    if isinstance(pred, OrPredicate):
-        return OrPredicate(relabel_predicate(pred.sub_predicate, mapping), relabel_predicate(pred.sub_predicate2, mapping))
-    if isinstance(pred, NotPredicate):
-        return NotPredicate(relabel_predicate(pred.sub_predicate, mapping))
-
-    kwargs = dict(pred.__dict__)
-    if "color" in kwargs and kwargs["color"] in mapping:
-        kwargs["color"] = mapping[kwargs["color"]]
-    if "target_box" in kwargs and kwargs["target_box"] in mapping:
-        kwargs["target_box"] = mapping[kwargs["target_box"]]
-    
-    return type(pred)(**kwargs)
 
 def render_surface_lexical(puzzle: Puzzle) -> str:
     text = ""
@@ -243,5 +228,5 @@ if __name__ == "__main__":
     print("\n==========================================")
     print(text_lexical)
     print("\n==========================================")
-    print(f" 💎 SOLUTION (INCHANGÉE) : {surface_solution}")
+    print(f" SOLUTION (INCHANGÉE) : {surface_solution}")
     print("==========================================")
