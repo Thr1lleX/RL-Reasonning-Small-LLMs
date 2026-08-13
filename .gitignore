@@ -1,0 +1,25 @@
+# Project specific exclusions requested by user
+docs/
+contexte-projet-rl-reasoning.md
+.claude/
+
+# Python cache & build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# IDE / Editor settings
+.idea/
+.vscode/

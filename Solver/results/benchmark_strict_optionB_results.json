@@ -1,0 +1,1116 @@
+{
+  "timestamp": "2026-08-10T14:16:39.815408",
+  "evaluation_mode": "Option B - Strict World Unicity (Gem Box + Full Truth Vector)",
+  "summary": {
+    "total_tested": 53,
+    "strict_gold_count": 43,
+    "strict_gold_percent": 81.1,
+    "multi_truths_count": 8,
+    "ambiguous_gem_count": 2
+  },
+  "results": [
+    {
+      "puzzle_id": 1,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 3,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 6,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 7,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 8,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 11,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 12,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 14,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 15,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 16,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 20,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 21,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 22,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 23,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 24,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 25,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 26,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 27,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 28,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 29,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 30,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 31,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 32,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 33,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 34,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 35,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 36,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 37,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 38,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 41,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 42,
+      "expected": "WHITE",
+      "predicted": "AMBIGUOUS",
+      "oracle_status": "EXCLUDED_AMBIGUOUS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (3/24)",
+      "valid_worlds_count": 3,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 43,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        },
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 47,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 51,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 52,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 55,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 56,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        },
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 59,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 78,
+      "expected": "WHITE",
+      "predicted": "AMBIGUOUS",
+      "oracle_status": "EXCLUDED_AMBIGUOUS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (3/24)",
+      "valid_worlds_count": 3,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 79,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 91,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 95,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 96,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 97,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 98,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 99,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        },
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 100,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 102,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 104,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            true,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 105,
+      "expected": "WHITE",
+      "predicted": "WHITE",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "WHITE",
+          "truths": [
+            true,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 107,
+      "expected": "BLUE",
+      "predicted": "BLUE",
+      "oracle_status": "EXCLUDED_MULTI_TRUTHS",
+      "is_strict_gold": false,
+      "unicity_status": "Multi (2/24)",
+      "valid_worlds_count": 2,
+      "valid_worlds": [
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "gem_box": "BLUE",
+          "truths": [
+            false,
+            true,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 108,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            true,
+            false,
+            false
+          ]
+        }
+      ]
+    },
+    {
+      "puzzle_id": 110,
+      "expected": "BLACK",
+      "predicted": "BLACK",
+      "oracle_status": "GOLD_STRICT_OK",
+      "is_strict_gold": true,
+      "unicity_status": "Unique (1/24)",
+      "valid_worlds_count": 1,
+      "valid_worlds": [
+        {
+          "gem_box": "BLACK",
+          "truths": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    }
+  ]
+}
