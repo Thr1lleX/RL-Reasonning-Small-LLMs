@@ -19,7 +19,7 @@ from solver import generate_all_worlds, is_world_valid
 ROOT = os.path.dirname(os.path.dirname(__file__))
 ORIGINAL_CSV = os.path.join(ROOT, "Parlor puzzles.csv")
 
-BOX_LABEL = {"BLUE": "BLUE (gauche)", "WHITE": "WHITE (milieu)", "BLACK": "BLACK (droite)"}
+BOX_LABEL = {"BLUE": "BLUE (left)", "WHITE": "WHITE (middle)", "BLACK": "BLACK (right)"}
 BOX_PREFIX = {"BLUE": "B", "WHITE": "W", "BLACK": "K"}
 
 # --------------------------------------------------------------------------
@@ -287,6 +287,38 @@ def check_alignment(oracle, texts):
             if n_text != n_formal:
                 mismatches.append((pid, b, n_text, n_formal))
     return mismatches
+
+
+def render_prompt(tp: dict) -> str:
+    """tp = {box: [texte_stmt, ...]} -> prompt complet (RULES + puzzle + format)."""
+    lines = [RULES, "", "Here is the puzzle:", ""]
+    for b in BOXES:
+        stmts = tp[b]
+        lines.append(f"{BOX_LABEL[b]} box:")
+        if not stmts:
+            lines.append("  (no statement)")
+        else:
+            for i, s in enumerate(stmts, 1):
+                lines.append(f"  [{BOX_PREFIX[b]}{i}] {s}")
+        lines.append("")
+    ids = statement_ids(tp)
+    counts = ", ".join(f"{BOX_LABEL[b].split()[0]}={len(tp[b])}" for b in BOXES)
+    id_template = "; ".join(f"{sid}=<T/F>" for sid in ids)
+    example = "; ".join(f"{sid}=T" for sid in ids)
+    lines.append(
+        "Think step by step. Then, on the VERY LAST line, output your final answer "
+        "in EXACTLY this one-line format (nothing after it):\n\n"
+        f"FINAL: gem=<BLUE|WHITE|BLACK>; {id_template}\n\n"
+        f"Label EVERY statement id, and ONLY these: {', '.join(ids)} "
+        f"(statement counts: {counts}). One T or F per id.\n"
+        f"Example (format only): FINAL: gem=WHITE; {example}"
+    )
+    return "\n".join(lines)
+
+
+def build_prompt(pid, texts):
+    return render_prompt(texts[pid])
+
 
 
 if __name__ == "__main__":
