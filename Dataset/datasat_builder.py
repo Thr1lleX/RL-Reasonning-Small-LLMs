@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import random
+import pickle
 from typing import Dict, List, Set, Tuple
 
 # Ajouter le dossier Solver pour importer les modules existants
@@ -11,12 +12,9 @@ from models import World, Puzzle, BOXES
 from solver import generate_all_worlds, is_world_valid, solve_puzzle
 from generator import generate_gold_puzzle, puzzle_signature
 from evaluate_batch import PUZZLES_REGISTER
-from eval_lib import RULES, BOX_LABEL, BOX_PREFIX
+from eval_lib import render_prompt, BOX_PREFIX
 
-
-from eval_lib import render_prompt, BOX_PREFIX   # (remplace l'import de RULES, BOX_LABEL)
-
-def format_chat_prompt(puzzle, world, example_id, split_name, metadata=None):
+def format_chat_prompt(puzzle: Puzzle, world: World, example_id: str, split_name: str, metadata=None) -> Dict:
     if metadata is None:
         metadata = {}
 
@@ -89,6 +87,7 @@ def build_direct_ft_dataset(train_size: int = 2100, val_size: int = 210, test_si
 
         current_stats = stats[split_name]
         chat_buffer = []
+        puzzles_buffer = []
         target_per_size_box = max(1, total_target // (num_sizes * num_boxes))
         example_idx = 1
 
@@ -134,17 +133,23 @@ def build_direct_ft_dataset(train_size: int = 2100, val_size: int = 210, test_si
                         }
                         chat_data = format_chat_prompt(puzzle, world, example_id, split_name, meta)
                         chat_buffer.append(chat_data)
+                        puzzles_buffer.append(puzzle)
                         example_idx += 1
 
             print(f"  -> Taille N={size} terminee : {current_stats['by_size'][size]} puzzles generes.")
 
-        # 4. Écriture du fichier JSONL pour ce split
+        # 4. Écriture du fichier JSONL et du fichier PKL pour ce split
         output_path = os.path.join(output_dir, f"{split_name}.jsonl")
         with open(output_path, 'w', encoding='utf-8') as f:
             for entry in chat_buffer:
                 f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
+        pkl_path = os.path.join(output_dir, f"{split_name}_puzzles.pkl")
+        with open(pkl_path, 'wb') as f:
+            pickle.dump(puzzles_buffer, f)
+
         print(f"\n[OK] Fichier ecrit : {output_path} ({len(chat_buffer)} exemples)")
+        print(f"[OK] Fichier AST ecrit : {pkl_path} ({len(puzzles_buffer)} objets Puzzle)")
         print(f"  Distribution par taille : {current_stats['by_size']}")
         print(f"  Distribution par boite  : {current_stats['by_box']}")
 

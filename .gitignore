@@ -1,7 +1,11 @@
-# Project specific exclusions requested by user
-docs/
+# Specific docs exclusions
+docs/RESULTS.md
+docs/LIMITS.md
 contexte-projet-rl-reasoning.md
 .claude/
+
+# Training model weights and checkpoints
+Training/*/
 
 # Python cache & build artifacts
 __pycache__/

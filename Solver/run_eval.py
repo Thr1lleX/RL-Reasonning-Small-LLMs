@@ -58,13 +58,17 @@ def append_record(fh, rec):
 # Backend modele (lazy) — non importe en dry-run
 # --------------------------------------------------------------------------
 
-def load_model(model_id):
+def load_model(model_id, adapter_path=None):
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(
         model_id, torch_dtype=torch.bfloat16, device_map="cuda"
     )
+    if adapter_path:
+        from peft import PeftModel
+        model = PeftModel.from_pretrained(model, adapter_path)
+        model = model.merge_and_unload()   # fusionne l'adaptateur pour l'inference
     model.eval()
     return tok, model
 
@@ -118,6 +122,10 @@ def main():
                     help="ne traiter que les N premiers puzzles GOLD (sonde)")
     ap.add_argument("--puzzles", default=None,
                     help="ids separes par des virgules, ex: 1,8,63 (sonde ciblee)")
+    ap.add_argument("--adapter", default=None,
+                    help="chemin d'un adaptateur LoRA/PEFT a appliquer sur la base (--model)")
+    ap.add_argument("--label", default=None,
+                    help="nom du modele dans les resultats (defaut: cle --model, ou <cle>-sft si --adapter)")
     args = ap.parse_args()
 
     os.makedirs(RESULTS_DIR, exist_ok=True)
@@ -144,31 +152,39 @@ def main():
     done = load_done(args.out)
 
     total_units = len(model_keys) * len(gold_ids) * args.n_samples
-    print(f"GOLD puzzles : {len(gold_ids)} | modeles : {model_keys} | N : {args.n_samples}")
-    print(f"Unites totales : {total_units} | deja faites : {len(done)} | restantes : {total_units - len([1 for mk in model_keys for pid in gold_ids for s in range(args.n_samples) if (mk,pid,s) in done])}")
+
+    def _label(mk):
+        return args.label or (f"{mk}-sft" if args.adapter else mk)
+    remaining = sum(1 for mk in model_keys for pid in gold_ids for s in range(args.n_samples)
+                    if (_label(mk), pid, s) not in done)
+    print(f"GOLD puzzles : {len(gold_ids)} | labels : {[_label(mk) for mk in model_keys]} | N : {args.n_samples}")
+    print(f"Unites totales : {total_units} | restantes : {remaining}")
     print(f"Sortie : {args.out}" + ("  [DRY-RUN]" if args.dry_run else ""))
 
     with open(args.out, "a", encoding="utf-8") as fh:
         for mk in model_keys:
+            # identite du run dans les resultats (distingue baseline / SFT / etc.)
+            label = args.label or (f"{mk}-sft" if args.adapter else mk)
             todo = [(pid, s) for pid in gold_ids for s in range(args.n_samples)
-                    if (mk, pid, s) not in done]
+                    if (label, pid, s) not in done]
             if not todo:
-                print(f"[{mk}] deja complet, saute.")
+                print(f"[{label}] deja complet, saute.")
                 continue
 
             tok = model = None
             if not args.dry_run:
-                print(f"[{mk}] chargement du modele {MODELS[mk]} ...")
-                tok, model = load_model(MODELS[mk])
+                src = MODELS[mk] + (f"  +adapter:{args.adapter}" if args.adapter else "")
+                print(f"[{label}] chargement de {src} ...")
+                tok, model = load_model(MODELS[mk], args.adapter)
 
-            print(f"[{mk}] {len(todo)} generations a faire.")
+            print(f"[{label}] {len(todo)} generations a faire.")
             n_done = 0
             for pid in gold_ids:
                 prompt = build_prompt(pid, texts)
                 for s in range(args.n_samples):
-                    if (mk, pid, s) in done:
+                    if (label, pid, s) in done:
                         continue
-                    seed = seed_for(mk, pid, s)
+                    seed = seed_for(label, pid, s)
                     if args.dry_run:
                         raw = dry_run_output(pid, s, oracle)
                     else:
@@ -176,23 +192,23 @@ def main():
                                             args.max_new_tokens, seed)
                     g = grade(parse_final(raw), oracle[pid])
                     rec = {
-                        "model": mk, "puzzle_id": pid, "sample_idx": s, "seed": seed,
+                        "model": label, "puzzle_id": pid, "sample_idx": s, "seed": seed,
                         "temperature": args.temperature,
                         **g,
                         "raw": raw,
                         "ts": datetime.now().isoformat(timespec="seconds"),
                     }
                     append_record(fh, rec)
-                    done.add((mk, pid, s))
+                    done.add((label, pid, s))
                     n_done += 1
                     if n_done % 20 == 0:
-                        print(f"  [{mk}] {n_done}/{len(todo)}")
+                        print(f"  [{label}] {n_done}/{len(todo)}")
 
             if not args.dry_run:
                 import torch
                 del model
                 torch.cuda.empty_cache()
-            print(f"[{mk}] termine ({n_done} nouvelles generations).")
+            print(f"[{label}] termine ({n_done} nouvelles generations).")
 
     print("Fini.")
 

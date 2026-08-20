@@ -218,7 +218,7 @@ def parse_final(text):
         k, v = seg.split("=", 1)
         k, v = k.strip(), v.strip()
         ku = k.upper()
-        if ku == "GEM":
+        if ku in ("GEM", "COIN", "PRIZE", "REWARD"):
             if v.upper() in BOXES:
                 gem = v.upper()
         elif ku in BOXES:                      # positionnel : BLUE=T,F
