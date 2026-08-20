@@ -1,4 +1,4 @@
-# RL/GRPO pour le raisonnement logique — puzzles « Blue Prince »
+# RL/GRPO pour le raisonnement logique, puzzles « Blue Prince »
 
 L'objectif de ce projet de recherche est d'entraîner un petit LLM (Qwen2.5-1.5B) au raisonnement
 logique sur un environnement de puzzles fait maison (inspiré de l'énigme des boîtes de *Blue Prince*,
