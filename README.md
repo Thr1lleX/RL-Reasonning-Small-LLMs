@@ -11,12 +11,12 @@ Plus d'informations sur l'énigme et son fonctionnement: https://blue-prince.fan
 > **Statut : work in progress.** Premières évaluations du score Limem du modèle en Direct-SFT.
 
 ## Documentation
-- [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) — journal de bord daté (décisions + pourquoi).
-- [`docs/METHODS.md`](docs/METHODS.md) — le système et les choix de conception.
-- [`docs/RESULTS.md`](docs/RESULTS.md) — index des expériences (config + seed + artefact). [WIP]
+- [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) - journal de bord daté (décisions + pourquoi).
+- [`docs/METHODS.md`](docs/METHODS.md) - le système et les choix de conception.
+- [`docs/RESULTS.md`](docs/RESULTS.md) - index des expériences (config + seed + artefact). [WIP]
 
 
-## Structure
+## Structure [WIP]
 ```
 Solver/
   models.py         # World, Puzzle
