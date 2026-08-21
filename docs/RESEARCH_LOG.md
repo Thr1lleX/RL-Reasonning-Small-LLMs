@@ -35,7 +35,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : Adopter la notation stricte Option B (Gemme + toutes les vérités) comme métrique principale pour éliminer le plancher du hasard.
 - **Ouvert** : Mesurer la précision par bit pour diagnostiquer l'apprentissage partiel.
 
-### 2026-08-10 — Résultat négatif central
+### 2026-08-10 - Résultat négatif central
 
 - **Contexte** : Une fois le harnais d'évaluation et la notation Option B en place, j'ai lancé l'évaluation de référence (zero-shot) de mon modèle candidat `qwen2.5-1.5b-instruct` sur l'ensemble des 57 puzzles GOLD du jeu, avec environ 8 essais par puzzle (456 générations au total).
 - **Fait** : J'ai mesuré les performances du modèle pour voir s'il montrait déjà un début de capacité de raisonnement avant tout entraînement.
@@ -46,7 +46,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : Ce résultat confirme que les petits modèles 1.5B ne savent pas du tout résoudre ces énigmes au départ. Il est donc impossible de compter sur une capacité native du modèle pour démarrer le projet.
 - **Ouvert** : Sans aucun signal initial, le modèle ne pourra pas s'améliorer tout seul en RL pur sans une première phase d'apprentissage guidé (SFT).
 
-### 2026-08-11 — Élimination des modèles
+### 2026-08-11 - Élimination des modèles
 
 - **Contexte** : Il fallait faire un choix définitif de modèle 1.5B pour la suite des expériences parmi les candidats identifiés : Qwen2.5-1.5B-Instruct, DeepSeek-R1-Distill-Qwen-1.5B et Qwen2.5-Math-1.5B.
 - **Fait** : J'ai testé chaque modèle sur le harnais d'évaluation pour observer leur comportement, leur respect du format de réponse imposé et leur stabilité sur ma configuration locale (RTX 3060 Ti 8 Go).
@@ -57,7 +57,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : J'ai éliminé R1-Distill et Qwen-Math, et j'ai retenu **Qwen2.5-1.5B-Instruct** comme modèle de référence pour tout le reste du projet.
 - **Ouvert** : Je garde en tête l'idée de tester éventuellement la version non-instruct (Qwen2.5-1.5B de base) si besoin lors de l'étape de SFT.
 
-### 2026-08-11 — Pivot méthodologique
+### 2026-08-11 - Pivot méthodologique
 
 - **Contexte** : Au départ, l'idée était de tester du renforcement pur (GRPO / RLVR) directement sur le modèle de base. Mais l'algorithme GRPO a besoin que le modèle trouve au moins de temps en temps la bonne solution pour recevoir une récompense positive et mettre à jour ses poids.
 - **Fait** : Face au résultat négatif du zero-shot (6.1 % de réussite globale et 0 % sur la majorité des puzzles), le modèle ne produira presque jamais de rollouts positifs au départ (problème du "cold start").
@@ -65,7 +65,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : J'ai décidé de faire pivoter l'approche vers un schéma **SFT $\rightarrow$ RL** : utiliser d'abord du SFT (Supervised Fine-Tuning) pour donner au modèle les bases du raisonnement et du format, puis utiliser le RL (GRPO) pour affiner la politique. Cela permet de comparer proprement 4 conditions : Baseline, RL seul, SFT seul, et SFT+RL.
 - **Ouvert** : Déterminer si je ferai du SFT direct ou du SFT avec traces de pensée (CoT). La question reste ouverte sur la manière de générer ces traces CoT : soit de manière déterministe via l'Oracle, soit en les faisant générer par un modèle plus gros (SOTA) pour un style plus naturel.
 
-### 2026-08-11 — Analyse de la difficulté
+### 2026-08-11 - Analyse de la difficulté
 
 - **Contexte** : Pour pouvoir générer de futurs puzzles synthétiques de façon contrôlée, il fallait comprendre précisément ce qui rend un puzzle facile ou difficile pour le modèle.
 - **Fait** : J'ai analysé les résultats puzzle par puzzle en croisant le taux de réussite du modèle avec les caractéristiques logiques de chaque énoncé (nombre de phrases, type de prédicats).
@@ -73,7 +73,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : J'ai retenu trois paramètres clés pour contrôler la difficulté dans le futur générateur : le nombre total de statements $N$, la proportion de prédicats référentiels (`relational_ratio`), et le taux d'opérateurs logiques (`ast_prob`).
 - **Ouvert** : Définir des seuils clairs pour classer les futurs puzzles générés en trois niveaux de difficulté (Facile, Moyen, Difficile).
 
-### 2026-08-12 — Module Générateur Synthétique
+### 2026-08-12 - Module Générateur Synthétique
 
 - **Contexte** : Les 57 puzzles du jeu d'origine ne suffisent pas pour entraîner un modèle. Il me fallait un outil capable de fabriquer automatiquement des milliers de nouveaux puzzles valides avec leur solution garantie par l'Oracle.
 - **Fait** : J'ai développé un générateur aléatoire combiné au solveur (`generate_random_puzzle` filtré par `is_world_valid`) qui construit des puzzles par force brute et ne retient que ceux qui ont une solution unique (GOLD).
@@ -84,7 +84,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : Le générateur est validé et prêt à produire les datasets d'entraînement synthétiques à grande échelle.
 - **Ouvert** : Construire les scripts pour exporter les datasets finaux au format JSONL.
 
-### 2026-08-13 — Perturbateur & LiMem
+### 2026-08-13 - Perturbateur & LiMem
 
 - **Contexte** : Pour évaluer si le modèle entraîné a vraiment appris à raisonner ou s'il se contente de mémoriser les phrases du jeu d'entraînement, je voulais implémenter une méthode similaire à celle du papier K&K (Xie et al.) avec des puzzles mutés.
 - **Fait** : J'ai codé deux types de perturbations distincts dans `perturbator.py` :
@@ -95,14 +95,14 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Ouvert** : Tester le futur modèle finetuné sur cette grille de perturbations pour quantifier son score LiMem.
 
 
-### 2026-08-15 — Constructeur de dataset Direct SFT 
+### 2026-08-15 - Constructeur de dataset Direct SFT 
 
 - **Contexte** : Pour commencer les différentes phases du projet (SFT + RL), la conception de datasets d'entrainement, de test et d'évaluation est nécessaire.
 - **Fait** : j'ai implémenté dataset_builder permettant de générer de tels datasets en respectant les règles usuelles (principe anti fuite, format jsonl, équilibrage strict)
 - **Décision + pourquoi** : La décision de générer un dataset équilibré par strates a été prise au détriment d'un dataset réaliste suivant la repartition reelle du jeu de base afin de faciliter et faire gagner en robustesse le score Limem.
 - **Ouvert** : la décision concernant la création des CoT synthetiques (utilisation d'une API SOTA vs résolution déterministe par bruteforce) reste encore ouverte. L'API SOTA permettrait d'avoir des raisonnements plus organiques et concis, mais le proncipal facteur limitant reste le cout.
 
-### 2026-08-15 — Direct SFT et tests d'évaluation 
+### 2026-08-15 - Direct SFT et tests d'évaluation 
 
 - **Contexte** : début de la phase SFT (Direct, uniquement donner la paire question/réponse)
 - **Fait** : 
@@ -111,7 +111,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : J'ai décidé de ne modifier que les matrives d'attention Q,K,V, correspondant à une modofication de surface. Cela devrait être (et a été) suffisant pour faire apprendre le format de parsing au modèle
 - **Ouvert** : Les datasets gold (out-distribution) et test (in-distribution) sont tous les deux utilisés pour l'évaluation de façon séparée. J'ai remarqué cependant de légères différences (présence ou non de points à la fin des statements par exemple) entre les deux. A voir si cela ne rend pas le résultat ambigu.
 
-### 2026-08-15 — Direct SFT , sous apprentissage et réitération
+### 2026-08-15 - Direct SFT , sous apprentissage et réitération
 
 - **Contexte** : une eval sur le dataset de train directement a conduit a diagnostiquer que le modèle a sous appris (résultats à peine au dessus du hasard)
 - **Fait** : 
@@ -119,7 +119,7 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : avec seulement 2 epochs, il est probable que le modèle n'ait pas eu le temps d'apprendre. De plus, la modification des matrices d'attention Q,K,V seulement  ne permet pas de modifier en profondeur le réseau, résultat en des améliorations faibles.
 - **Ouvert** : en l'attente des premiers résultat. Les sessions de finetuning durent de l'ordre de 3h sur carte.
 
-### 2026-08-16 — Validation de Direct-FT v2 (Déblocage du signal capacitaire)
+### 2026-08-16 - Validation de Direct-FT v2 (Déblocage du signal capacitaire)
 
 - **Contexte** : L'entraînement Direct-FT v2 (8 époques, LoRA $r=32$ all-linear) s'est terminé proprement. Il fallait vérifier si l'augmentation de capacité et de temps d'exposition permettait de sortir de la zone de hasard.
 - **Fait** : J'ai évalué le modèle v2 sur les 3 splits de référence : in-sample Train ($N=840$), test held-out synthétique ($N=1680$) et les 57 réels GOLD du jeu ($N=456$).
@@ -130,23 +130,25 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
 - **Décision + pourquoi** : Le Direct-FT v2 est validé comme adaptateur de référence pour initialiser la phase de RL (warm-start). L'hypothèse d'absence totale de signal est révisée : un signal logique réel mais plafonné émerge en direct prediction.
 - **Ouvert** : Passer à l'étape RL (GRPO) pour voir si le gradient par renforcement peut amplifier ce signal.
 
-### 2026-08-16 — Entraînement RL GRPO et diagnostic de convergence
+### 2026-08-16 - Entraînement RL GRPO et diagnostic de convergence
 
 - **Contexte** : Avec l'adaptateur Direct-FT v2 comme point de départ, j'ai implémenté le pipeline de RL avec l'algorithme GRPO via TRL (`train_grpo.py`) sur 300 steps.
 - **Fait** : 
   - J'ai configuré une reward graduée ($r \in [0, 2.8]$) récompensant la gemme, la fraction de bits justes et un bonus pour la résolution stricte Option B.
   - J'ai d'abord testé un learning rate conservateur ($LR = 10^{-6}$, $\beta=0.04$, $G=8$). Constatant que la reward stagnait à $\sim 1.05$ et que la divergence KL restait figée à $0.0007$, j'ai relancé une passe avec $LR = 10^{-5}$.
 - **Résultat** : Avec $LR = 10^{-5}$, le modèle bouge enfin (la divergence KL monte à $0.038 - 0.073$, soit $\times 50$), mais la reward moyenne continue d'osciller en plateau autour de $\sim 0.99 - 1.15$ sans tendance haussière.
-- **Décision + pourquoi** : Ce résultat négatif est fondamental : en l'absence de chaîne de pensée (CoT), le RL sur 25 tokens directs ne dispose d'aucun espace computationnel pour construire des inférences logiques. Les variations de score au sein d'un groupe $G=8$ relèvent du bruit d'échantillonnage de surface.
+- **Décision + pourquoi** : Ce résultat semble montrer que en l'absence de CoT, le RL sur 25 tokens directs ne dispose d'aucun espace computationnel pour construire des inférences logiques. Les variations de score au sein d'un groupe $G=8$ relèvent du bruit d'échantillonnage de surface.
 - **Ouvert** : Cela démontre la nécessité d'introduire des traces de raisonnement (CoT-FT / CoT-RL).
 
-### 2026-08-17 — Protocole LiMem Option B et sonde de mémorisation
+### 2026-08-17 - Protocole LiMem Option B et sonde de mémorisation
 
 - **Contexte** : Pour mesurer formellement la mémorisation et l'invariance logique du modèle aux différentes étapes (Baseline, SFT seul, SFT+RL), il fallait implémenter un script d'évaluation LiMem complet et robuste (`eval_limem.py`).
 - **Fait** : 
-  - Suite à une analyse méthodologique rigoureuse (protocole Xie et al.), j'ai structuré l'évaluation en deux axes distincts : la vraie mesure de mémorisation sur les instances vues (Train SFT), et la mesure de robustesse lexicale OOD sur les instances inédites (57 Réels).
-  - J'ai intégré la notation complète Option B via `grade()` pour évaluer le gap sur la Bit-Accuracy et le Strict, éliminant l'écueil du gem-only qui masquait la dynamique dans le bruit du hasard.
-  - J'ai éliminé tout remplacement synthétique étranger : les 22 puzzles non mutables de façon minimale sont proprement ignorés (`skipped`) pour que le taux de fuite mémorielle (`memory_leak`) reste non biaisé.
-  - J'ai corrigé le formatage des prompts pour le modèle Instruct en appliquant le template ChatML (`apply_chat_template`) et en isolant la perturbation lexicale des mots-clés de syntaxe de sortie.
+  - Suite à une analyse méthodologique du(protocole Xie et al.), j'ai structuré l'évaluation en deux axes distincts : la vraie mesure de mémorisation sur les instances vues (Train SFT), et la mesure de robustesse lexicale OOD sur les instances inédites (57 Réels).
+  - J'ai intégré la notation complète Option B via `grade()` pour évaluer le gap sur la Bit-Accuracy ET le Strict, éliminant l'écueil du gem-only qui masquait la dynamique dans le bruit du hasard.
+  - J'ai éliminé tout remplacement synthétique étranger : les 22 puzzles non mutables de façon minimale sont simplement ignorés (`skipped`) pour que le taux de fuite mémorielle (`memory_leak`) reste non biaisé.
 - **Décision + pourquoi** : Utiliser ce harnais pour produire les tableaux comparatifs de mémorisation SFT seul vs SFT+RL et prouver expérimentalement l'impact du RL sur la récitation.
 - **Ouvert** : Lancer l'évaluation complète sur le train et les 57 réels pour consigner les chiffres définitifs.
+
+- ### 2026-08-20 - 
+
