@@ -25,7 +25,7 @@ Alors que les travaux antérieurs sur *Knights & Knaves* (K&K, Xie et al.) étud
 
 Dans le jeu vidéo *Blue Prince*, le joueur explore un manoir aux pièces générées procéduralement et découvre régulièrement des salles d'énigmes logiques. Sur une table sont posées trois boîtes de couleurs distinctes : une boîte **Bleue** (à gauche), une boîte **Blanche** (au milieu) et une boîte **Noire** (à droite). 
 
-L'objectif du joueur est d'ouvrir la boîte qui renferme les **gemmes** (la récompense). Une seule des trois boîtes contient les gemmes, les deux autres étant vides. Sur chaque boîte sont gravées une ou plusieurs affirmations textuelles. Le jeu impose une méta-règle universelle immuable :
+L'objectif du joueur est d'ouvrir la seule boîte qui renferme les **gemmes** (la récompense). Une seule des trois boîtes contient les gemmes, les deux autres étant vides. Sur chaque boîte sont gravées une ou plusieurs affirmations textuelles. Le jeu impose une méta-règle universelle immuable :
 > *« Au moins une boîte dit l'entière vérité (toutes ses affirmations sont vraies), et au moins une boîte ment complètement (toutes ses affirmations sont fausses). »*
 
 #### Exemple 1 : Énigme à une affirmation par boîte (Puzzle canonique du jeu #11)
@@ -211,6 +211,13 @@ L'étape de RL utilise l'algorithme GRPO (*Group Relative Policy Optimization*) 
 - **Fonction de récompense graduée ($r \in [0, 2.8]$)** :
   $$r = \begin{cases} 0.0 & \text{si non parsable} \\ 1.0 \times \mathbb{I}(\text{gemme juste}) + 0.8 \times \text{frac\_bits} + 1.0 \times \mathbb{I}(\text{Option B strict}) & \text{sinon} \end{cases}$$
 
+### C. Distillation de Raisonnement et Pipeline CoT (SOTA_CoT)
+Face au plafond structurel du Direct-FT RL (incapacité à déduire sans scratchpad computationnel), un pipeline de génération et de distillation de traces de pensée (CoT) a été développé (`Dataset/SOTA_CoT.py`) :
+1. **Génération guidée par modèle Enseignant SOTA** : Les prompts d'entraînement sont enrichis d'une directive d'inférence déductive explicite
+2. **Robustesse réseau & Backoff exponentiel** : Gestion automatique des rate-limits API (HTTP 429) et erreurs serveur (5XX) avec un délai adaptatif $T_{\text{sleep}} = T_{\text{base}} \times 2^{\text{attempt}}$.
+3. **Rejection Sampling par l'Oracle** : Chaque trace est soumise à l'évaluation déterministe `grade(parse_final(content), gold_oracle)`. Seules les réponses certifiées à 100 % d'exactitude stricte Option B sont intégrées dans `Dataset/ft_cot/train_cot.jsonl`.
+4. **Politique d'abandon ($K=3$) et journalisation des rejets** : Tout puzzle non résolu après 3 essais est abandonné et journalisé dans `Dataset/ft_cot/raw_rejected_traces.jsonl`. Cette politique garantit la pureté du signal d'apprentissage au détriment d'un biais de survie éliminant les instances les plus ardues.
+
 ## 8. Journal des décisions structurantes
 
 | Décision | Date | Alternative écartée | Justification principale |
@@ -221,3 +228,4 @@ L'étape de RL utilise l'algorithme GRPO (*Group Relative Policy Optimization*) 
 | **Pivot SFT $\rightarrow$ RL** | 2026-08-11 | RL pur (Cold start) | Baseline zero-shot à 6.1 % strict : pas de rollouts positifs au départ sans amorçage supervisé. |
 | **Direct-FT v2 capacitaire** | 2026-08-15 | SFT v1 (2 époques, attention-only) | SFT v1 sous-apprenait ($50.6\%$ bit-acc) ; v2 étend à 8 époques et all-linear ($65.5\%$ held-out). |
 | **LiMem à double axe** | 2026-08-17 | LiMem uniquement sur les réels | Les réels mesurent la robustesse OOD ; le train synthétique mesure la vraie mémorisation SFT. |
+| **Distillation CoT Rejection Sampling** | 2026-08-22 | Poursuivre le RL sans CoT | Le No-CoT plafonne en RL ; génération de traces certifiées par Oracle avec abandon à $K=3$. |

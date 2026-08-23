@@ -150,3 +150,21 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
   - J'ai corrigé le formatage des prompts pour le modèle Instruct en appliquant le template ChatML (`apply_chat_template`) et en isolant la perturbation lexicale des mots-clés de syntaxe de sortie.
 - **Décision + pourquoi** : Utiliser ce harnais pour produire les tableaux comparatifs de mémorisation SFT seul vs SFT+RL et prouver expérimentalement l'impact du RL sur la récitation.
 - **Ouvert** : Lancer l'évaluation complète sur le train et les 57 réels pour consigner les chiffres définitifs.
+
+### 2026-08-21 - Résultats de la sonde LiMem sur SFT v2 (Train 300 puzzles)
+
+- **Contexte** : Exécution de la sonde LiMem sur 300 puzzles du Train vus au SFT ($300 \times 8 \times 3 = 7\,200$ tirages potentiels, $N=2\,400$ par condition) via `eval_limem.py`.
+- **Fait** : Analyse agrégée des performances sur les trois conditions : canonique, isomorphe (perturbation lexicale de surface) et mutant minimal (changement de prédicat).
+- **Résultat** : [En attente d'une analyse statistique plus poussée]
+  
+
+### 2026-08-23 - Générateur de Distillation CoT SOTA et politique de Rejection Sampling
+
+- **Contexte** : Pour amorcer un entraînement supervisé puis par renforcement avec chaîne de pensée (CoT-FT / CoT-RL), il est nécessaire de constituer un dataset de démonstrations de raisonnement déductif valide.
+- **Fait** :
+  - Implémentation du script de distillation `Dataset/SOTA_CoT.py` interrogeant un modèle de raisonnement SOTA via API.
+  - Mise en place d'un mécanisme de retry avec backoff exponentiel pour absorber les erreurs HTTP 429 et 5XX.
+  - Validation déterministe de chaque génération par l'Oracle (`eval_lib.grade`) : seule une réponse à 100 % d'exactitude stricte (Option B) est retenue.
+  - Implémentation d'une politique d'abandon avec $K=3$ essais maximum par puzzle et journalisation des échecs dans `raw_rejected_traces.jsonl`.
+- **Décision + pourquoi** : Assumer le choix méthodologique précédent, impliquant un léger biais vers les puzzles plus faciles : il garantit l'absence d'hallucination ou d'erreur logique grossière dans les données d'entraînement supervisé, tout en documentant explicitement le biais de sélection (*survivorship bias*) induit sur la distribution de difficulté.
+- **Ouvert** : 

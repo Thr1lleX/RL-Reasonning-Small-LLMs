@@ -3,6 +3,7 @@ docs/RESULTS.md
 docs/LIMITS.md
 contexte-projet-rl-reasoning.md
 .claude/
+.env*
 
 # Training model weights and checkpoints
 Training/*/
