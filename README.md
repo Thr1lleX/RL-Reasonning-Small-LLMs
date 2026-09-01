@@ -8,7 +8,7 @@ travers quatre conditions d'entraînement (baseline / RL-seul / SFT / SFT+RL).
 Plus d'informations sur l'énigme et son fonctionnement: https://blue-prince.fandom.com/wiki/Parlor_Puzzle
 
 
-> **Statut : work in progress.** Premières évaluations du score Limem du modèle en Direct-SFT.
+> **Statut : work in progress.** Generation des CoT synthetiques par un modèle SOTA (Deepseek v4 flash) via des appels API pour pouvoir faire du CoT-Fine-tuning sur le modèle de base.
 
 ## Documentation
 - [`docs/RESEARCH_LOG.md`](docs/RESEARCH_LOG.md) - journal de bord daté (décisions + pourquoi).
