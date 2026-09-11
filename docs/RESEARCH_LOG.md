@@ -166,4 +166,12 @@ Les modèles sont evalues en zero shot prompting, au detriment su one-shot. Cett
   - Validation déterministe de chaque génération par l'Oracle (`eval_lib.grade`) : seule une réponse à 100 % d'exactitude stricte (Option B) est retenue.
   - Implémentation d'une politique d'abandon avec $K=3$ essais maximum par puzzle et journalisation des échecs dans `raw_rejected_traces.jsonl`.
 - **Décision + pourquoi** : Assumer le choix méthodologique précédent, impliquant un léger biais vers les puzzles plus faciles : il garantit l'absence d'hallucination ou d'erreur logique grossière dans les données d'entraînement supervisé, tout en documentant explicitement le biais de sélection (*survivorship bias*) induit sur la distribution de difficulté.
-- **Ouvert** : 
+- **Ouvert** : Finaliser la génération sur le split Train (2100 puzzles).
+
+### 2026-08-29 - Audit & Correction de la politique d'abandon pass@3 (SOTA CoT)
+
+- **Contexte** : Lors de relances du script de distillation `Dataset/SOTA_CoT.py`, les puzzles ayant échoué à leurs 3 essais ($K=3$) étaient réessayés lors des exécutions ultérieures car seul le fichier `train_cot.jsonl` était inspecté pour déterminer les puzzles traités. Cela risquait de biaiser le taux de succès pass@3 du modèle SOTA et d'introduire des exemples ayant nécessité plus de 3 tentatives.
+- **Fait** :
+  - Modification de `SOTA_CoT.py` : intégration au démarrage d'une lecture conjointe de `train_cot.jsonl` (succès) et de `raw_rejected_traces.jsonl` (échecs). Tout puzzle ayant cumulé $\ge 3$ échecs est désormais exclu des relances. Pour les puzzles interrompus en cours d'exécution ($< 3$ échecs), la reprise s'effectue strictement sur les essais restants.
+- **Décision + pourquoi** : Conserver une intégrité méthodologique absolue sur le protocole pass@3 pour éviter toute contamination ou surestimation des capacités de raisonnement du modèle SOTA ou surcouts d'API.
+- **Ouvert** : Poursuivre la distillation CoT jusqu'au terme du jeu d'entraînement. 
